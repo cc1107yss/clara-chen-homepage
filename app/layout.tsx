@@ -1,28 +1,30 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Bodoni_Moda, Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bodoni = Bodoni_Moda({
+  variable: "--font-bodoni",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["500"],
 });
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://clarachen.dev"),
-  title: "Clara Chen — A quiet place for loud ideas",
+  title: "Clara Chen — Researcher, Designer, Builder",
   description:
-    "Clara Chen's living index for work, notes, and ideas still finding their form.",
+    "Clara Chen explores the intersection of mathematics, artificial intelligence, finance, art, and design.",
   alternates: {
     canonical: "/",
   },
@@ -30,23 +32,23 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: "Clara Chen",
-    title: "Clara Chen — A quiet place for loud ideas",
+    title: "Clara Chen — Researcher, Designer, Builder",
     description:
-      "A living index for work, notes, and ideas still finding their form.",
+      "Exploring the intersection of mathematics, artificial intelligence, finance, art, and design.",
     images: [
       {
         url: "/og.png",
-        width: 1734,
-        height: 907,
-        alt: "Clara Chen — A quiet place for loud ideas",
+        width: 1732,
+        height: 908,
+        alt: "Clara Chen — Researcher, Designer, Builder",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Clara Chen — A quiet place for loud ideas",
+    title: "Clara Chen — Researcher, Designer, Builder",
     description:
-      "A living index for work, notes, and ideas still finding their form.",
+      "Exploring the intersection of mathematics, artificial intelligence, finance, art, and design.",
     images: ["/og.png"],
   },
 };
@@ -59,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
+        className={`${bodoni.variable} ${cormorant.variable} ${inter.variable}`}
       >
         {children}
       </body>

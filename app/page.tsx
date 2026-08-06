@@ -1,146 +1,121 @@
-const intentions = [
-  {
-    label: "Making",
-    text: "Work shaped with curiosity, clarity, and a stubborn eye for detail.",
-  },
-  {
-    label: "Noticing",
-    text: "Small observations, useful references, and ideas worth returning to.",
-  },
-  {
-    label: "Becoming",
-    text: "A personal corner of the internet, deliberately left room to evolve.",
-  },
-];
+import { ArtworkBack, ArtworkFront, ArtworkStructure } from "./components/home/HomeArtwork";
+import { homeContent } from "./home-content";
+
+function ClaraMonogram() {
+  return (
+    <a className="cc-monogram" href="#home" aria-label="Clara Chen — home">
+      <span aria-hidden="true">C</span>
+      <span aria-hidden="true">C</span>
+    </a>
+  );
+}
+
+function EditorialHeader() {
+  return (
+    <header className="cc-header">
+      <ClaraMonogram />
+      <nav className="cc-nav" aria-label="Main navigation">
+        {homeContent.nav.map((item) => (
+          <a key={item.label} href={item.href}>{item.label}</a>
+        ))}
+      </nav>
+      <button className="cc-menu" type="button" aria-label="Open navigation menu">
+        Menu
+      </button>
+      <span className="cc-header-rule" aria-hidden="true" />
+    </header>
+  );
+}
+
+function LeftRail() {
+  return (
+    <div className="cc-left-rail" aria-hidden="true">
+      <span className="cc-left-rail-line" />
+      <p>Math is the poetry of logic.</p>
+    </div>
+  );
+}
+
+function HeroName() {
+  return (
+    <h1 className="cc-hero-name" id="home-title" aria-label="Clara Chen">
+      <span className="cc-hero-first">{homeContent.name.first}</span>
+      <span className="cc-hero-last">{homeContent.name.last}</span>
+      <span className="cc-hero-dot" aria-hidden="true" />
+    </h1>
+  );
+}
+
+function PersonalStatement() {
+  return (
+    <aside className="cc-statement" id="about" aria-label="Introduction">
+      <span className="cc-statement-bar" aria-hidden="true" />
+      <p className="cc-statement-body">
+        {homeContent.statement.map((line) => <span key={line}>{line}</span>)}
+      </p>
+      <p className="cc-statement-roles">
+        {homeContent.roles.map((line) => <span key={line}>{line}</span>)}
+      </p>
+    </aside>
+  );
+}
+
+function TraitCluster() {
+  return (
+    <div className="cc-traits" id="thoughts">
+      {homeContent.traits.map((trait) => <span key={trait}>{trait}</span>)}
+      <i aria-hidden="true" />
+    </div>
+  );
+}
+
+function ManifoldLabels() {
+  return (
+    <div className="cc-manifold-labels" aria-hidden="true">
+      <span>Input Space</span>
+      <span>Latent<br />Manifold</span>
+      <span>Abstraction<br />Layers</span>
+      <span>Output Space</span>
+    </div>
+  );
+}
+
+function IntegralGlyph() {
+  return (
+    <div className="cc-integral" aria-hidden="true">
+      <span>∫</span><i>X</i>
+    </div>
+  );
+}
+
+function ExploreWorkCTA() {
+  return (
+    <a className="cc-cta" href="#work" id="work">
+      <span className="cc-cta-dot" aria-hidden="true" />
+      <span className="cc-cta-rule" aria-hidden="true" />
+      <span className="cc-cta-label">{homeContent.cta}</span>
+      <span className="cc-cta-arrow" aria-hidden="true" />
+    </a>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="site-shell" id="top">
-      <header className="site-header">
-        <a className="wordmark" href="#top" aria-label="Clara Chen — home">
-          <span className="wordmark-seal" aria-hidden="true">
-            C
-          </span>
-          <span className="wordmark-copy">
-            <strong>Clara Chen</strong>
-            <small>Personal index</small>
-          </span>
-        </a>
-
-        <nav className="site-nav" aria-label="Main navigation">
-          <a href="#index">Index</a>
-          <a href="#about">About</a>
-        </nav>
-
-        <div className="live-status" aria-label="Website status: online">
-          <span className="status-dot" aria-hidden="true" />
-          <span>Los Angeles</span>
-        </div>
-      </header>
-
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-meta" aria-hidden="true">
-          <span>clarachen.dev</span>
-          <span>36.05° N · 118.24° W</span>
-        </div>
-
-        <div className="hero-copy">
-          <p className="eyebrow">
-            <span>Edition 001</span>
-            <span className="eyebrow-line" />
-            <span>Est. 2026</span>
-          </p>
-          <h1 id="hero-title">
-            A quiet place
-            <span className="hero-title-accent">for loud ideas.</span>
-          </h1>
-          <div className="hero-intro-row">
-            <p className="intro">
-              Clara Chen&apos;s living index for work, notes, and all the ideas
-              still finding their form.
-            </p>
-            <a className="enter-link" href="#index">
-              <span>Enter the index</span>
-              <span className="enter-arrow" aria-hidden="true">
-                ↓
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <div className="portrait-mark" aria-label="Clara Chen monogram artwork">
-          <span className="mark-index mark-index-one" aria-hidden="true">
-            01
-          </span>
-          <span className="mark-index mark-index-two" aria-hidden="true">
-            26
-          </span>
-          <div className="mark-plane mark-plane-back" aria-hidden="true" />
-          <div className="mark-plane mark-plane-front" aria-hidden="true" />
-          <div className="monogram" aria-hidden="true">
-            <span>C</span>
-            <span>C</span>
-          </div>
-          <p className="mark-caption">A personal signal, still in motion.</p>
-        </div>
-
-        <p className="hero-side-note" aria-hidden="true">
-          Scroll to unfold · Scroll to unfold · Scroll to unfold
-        </p>
+    <main className="cc-home-shell">
+      <section className="cc-home-artboard" id="home" aria-labelledby="home-title">
+        <ArtworkBack />
+        <EditorialHeader />
+        <LeftRail />
+        <HeroName />
+        <ArtworkStructure />
+        <ArtworkFront />
+        <ManifoldLabels />
+        <PersonalStatement />
+        <TraitCluster />
+        <IntegralGlyph />
+        <ExploreWorkCTA />
+        <span className="cc-contact-anchor" id="contact" aria-hidden="true" />
       </section>
-
-      <section className="index-section" id="index" aria-labelledby="index-title">
-        <div className="section-heading">
-          <p className="section-kicker">The index</p>
-          <h2 id="index-title">
-            An archive of things
-            <em>in progress.</em>
-          </h2>
-          <p>
-            Not a finished portfolio. A growing record of what catches the eye,
-            holds attention, and becomes worth making.
-          </p>
-        </div>
-
-        <div className="intention-list">
-          {intentions.map((item, index) => (
-            <article className="intention" key={item.label}>
-              <span className="intention-number">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3>{item.label}</h3>
-              <p>{item.text}</p>
-              <span className="intention-glyph" aria-hidden="true">
-                ↗
-              </span>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="about-section" id="about" aria-labelledby="about-title">
-        <p className="about-orbit" aria-hidden="true">
-          Curious by nature · precise by choice · always becoming ·
-        </p>
-        <div className="about-copy">
-          <p className="section-kicker">About this place</p>
-          <h2 id="about-title">Online, but unhurried.</h2>
-          <p>
-            The best personal spaces feel less like a feed and more like a room.
-            This one is being furnished slowly—with thought, texture, and only
-            the things that deserve to stay.
-          </p>
-        </div>
-      </section>
-
-      <footer className="site-footer">
-        <div>
-          <span className="footer-mark">C²</span>
-          <p>Clara Chen</p>
-        </div>
-        <p>A small place with room to grow.</p>
-        <p>© 2026 · clarachen.dev</p>
-      </footer>
     </main>
   );
 }

@@ -23,35 +23,45 @@ async function render() {
   );
 }
 
-test("server-renders Clara Chen's personal index", async () => {
+test("server-renders Clara Chen's editorial homepage", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Clara Chen — A quiet place for loud ideas<\/title>/i);
-  assert.match(html, /A quiet place/);
-  assert.match(html, /for loud ideas\./);
+  assert.match(html, /<title>Clara Chen — Researcher, Designer, Builder<\/title>/i);
+  assert.match(html, /aria-label="Clara Chen"/);
+  assert.match(html, />Clara<\/span>/);
+  assert.match(html, />Chen<\/span>/);
   assert.match(html, /aria-label="Main navigation"/);
-  assert.match(html, /id="index"/);
   assert.match(html, /id="about"/);
-  assert.match(html, /Making/);
-  assert.match(html, /Noticing/);
-  assert.match(html, /Becoming/);
+  assert.match(html, /I explore the space/);
+  assert.match(html, /where mathematics,/);
+  assert.match(html, /Researcher\. Designer\./);
+  assert.match(html, /Systems Thinker/);
+  assert.match(html, /Explore My Work/);
+  assert.match(html, /<svg[^>]*aria-hidden="true"/);
   assert.match(html, /property="og:image" content="https:\/\/clarachen\.dev\/og\.png"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
   assert.doesNotMatch(html, /codex-preview|figmacapture|html-to-design\/capture\.js/i);
 });
 
-test("ships the bespoke social card and accessibility safeguards", async () => {
-  const css = await readFile(
-    new URL("../app/globals.css", import.meta.url),
-    "utf8",
-  );
+test("ships responsive, deterministic and accessible visual layers", async () => {
+  const [css, artwork] = await Promise.all([
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(
+      new URL("../app/components/home/HomeArtwork.tsx", import.meta.url),
+      "utf8",
+    ),
+  ]);
 
   await access(new URL("../public/og.png", import.meta.url));
   assert.match(css, /:focus-visible/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.match(css, /@media \(max-width:\s*720px\)/);
-  assert.match(css, /--vermilion:\s*#ef5b3f/i);
+  assert.match(css, /@media \(max-width:\s*899px\)/);
+  assert.match(css, /@media \(max-width:\s*699px\)/);
+  assert.match(css, /--cc-paper:\s*#f6f2f0/i);
+  assert.match(artwork, /viewBox="0 0 1448 1086"/);
+  assert.match(artwork, /aria-hidden="true"/);
+  assert.doesNotMatch(artwork, /Math\.random/);
 });
