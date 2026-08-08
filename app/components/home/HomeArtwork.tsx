@@ -36,6 +36,24 @@ const networkNodes = [
   [1016, 103], [1098, 106], [1214, 112], [1330, 262], [1340, 340], [1327, 448],
 ] as const;
 
+/*
+ * Connect each point only to its closest local neighbours. The previous
+ * index-based links cut long diagonals through the whole module and made the
+ * desktop composition feel noisy. This keeps the graph analytical while
+ * allowing the twisted manifold to remain the dominant shape.
+ */
+const networkEdges = networkNodes.flatMap(([x, y], index) =>
+  networkNodes
+    .map(([nextX, nextY], nextIndex) => ({
+      nextIndex,
+      distance: Math.hypot(nextX - x, nextY - y),
+    }))
+    .filter(({ nextIndex, distance }) => nextIndex > index && distance < 96)
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, index % 7 === 0 ? 3 : 2)
+    .map(({ nextIndex }) => [index, nextIndex] as const),
+);
+
 const oliveNodeIndexes = new Set([0, 2, 4, 5, 8, 9, 10, 12, 14, 15, 16, 17, 19, 21, 23, 25, 26, 28, 30, 31, 33, 35, 37, 38, 40, 42, 44, 46, 48, 49]);
 const oxbloodNodeIndexes = new Set([4, 13, 29, 36]);
 const hollowNodeIndexes = new Set([24, 32, 39, 52, 53]);
@@ -57,13 +75,13 @@ function ArtworkBase({ className, children }: { className: string; children: Rea
 export function ArtworkBack() {
   return (
     <ArtworkBase className="cc-artwork-back">
-      <g className="cc-contour-field" fill="none" stroke="var(--cc-hairline)" strokeWidth="0.72" vectorEffect="non-scaling-stroke">
+      <g className="cc-contour-field" fill="none" stroke="var(--cc-hairline-deep)" strokeWidth="0.66" vectorEffect="non-scaling-stroke">
         {contourPaths.map((path, index) => (
-          <path key={index} d={path} opacity={0.1 + (index % 5) * 0.012} />
+          <path key={index} d={path} opacity={0.085 + (index % 5) * 0.016} />
         ))}
       </g>
-      <g className="cc-upper-strands" fill="none" stroke="var(--cc-hairline)" strokeWidth="0.7" opacity="0.48" vectorEffect="non-scaling-stroke">
-        {upperStrands.map((path, index) => <path key={index} d={path} opacity={0.22 + index * 0.009} />)}
+      <g className="cc-upper-strands" fill="none" stroke="var(--cc-hairline-deep)" strokeWidth="0.64" vectorEffect="non-scaling-stroke">
+        {upperStrands.map((path, index) => <path key={index} d={path} opacity={0.1 + index * 0.006} />)}
       </g>
       <path d="M 270 470 C 330 410, 348 360, 310 300" fill="none" stroke="var(--cc-hairline)" strokeDasharray="4 5" opacity="0.35" />
       <path d="M 552 1086 C 503 935, 571 850, 684 820 C 793 791, 906 696, 1017 489" fill="none" stroke="var(--cc-hairline-soft)" strokeWidth="1" opacity="0.48" />
@@ -132,25 +150,31 @@ export function ArtworkStructure() {
               ry={ry + index * 2.2}
               stroke="var(--cc-hairline)"
               strokeWidth="0.62"
-              opacity={0.48 - index * 0.02}
+              opacity={0.34 - index * 0.014}
             />
           )),
         )}
-        {networkNodes.map(([x, y], index) => {
-          const next = networkNodes[(index + 5 + (index % 4)) % networkNodes.length];
-          const nextTwo = networkNodes[(index + 11) % networkNodes.length];
+        {networkEdges.map(([startIndex, endIndex], index) => {
+          const start = networkNodes[startIndex];
+          const end = networkNodes[endIndex];
           return (
-            <g key={`edge-${index}`} stroke="var(--cc-hairline-deep)" strokeWidth="0.7" opacity="0.27">
-              <line x1={x} y1={y} x2={next[0]} y2={next[1]} />
-              {index % 2 === 0 && <line x1={x} y1={y} x2={nextTwo[0]} y2={nextTwo[1]} />}
-            </g>
+            <line
+              key={`edge-${startIndex}-${endIndex}`}
+              x1={start[0]}
+              y1={start[1]}
+              x2={end[0]}
+              y2={end[1]}
+              stroke="var(--cc-hairline-deep)"
+              strokeWidth="0.66"
+              opacity={0.15 + (index % 4) * 0.017}
+            />
           );
         })}
         {networkNodes.map(([x, y], index) => {
           const isOxblood = oxbloodNodeIndexes.has(index);
           const isHollow = hollowNodeIndexes.has(index);
           const fill = isHollow ? "var(--cc-white)" : isOxblood ? "var(--cc-oxblood)" : oliveNodeIndexes.has(index) ? "var(--cc-olive)" : "var(--cc-ink-soft)";
-          return <circle key={`node-${index}`} cx={x} cy={y} r={isOxblood ? 4.4 : isHollow ? 3.6 : index % 9 === 0 ? 4 : 2.35} fill={fill} stroke={isHollow ? "var(--cc-hairline-deep)" : "none"} strokeWidth={isHollow ? 1.6 : 0} />;
+          return <circle key={`node-${index}`} cx={x} cy={y} r={isOxblood ? 4.2 : isHollow ? 3.4 : index % 9 === 0 ? 3.6 : 2.15} fill={fill} stroke={isHollow ? "var(--cc-hairline-deep)" : "none"} strokeWidth={isHollow ? 1.45 : 0} />;
         })}
       </g>
     </ArtworkBase>

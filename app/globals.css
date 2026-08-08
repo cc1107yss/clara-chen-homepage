@@ -124,7 +124,7 @@ button:focus-visible {
 
 .cc-nav {
   position: absolute;
-  left: 32.3895%;
+  left: 32.6657%;
   top: 1.55%;
   width: 35.6354%;
   height: 5.2%;
@@ -225,13 +225,13 @@ button:focus-visible {
 .cc-left-rail p {
   position: absolute;
   left: 2.8315%;
-  top: 31.1%;
+  top: 31.86%;
   margin: 0;
   color: var(--cc-ink);
   font-family: var(--cc-font-ui);
   font-size: max(7px, 0.72cqw);
   font-weight: 600;
-  letter-spacing: 0.39em;
+  letter-spacing: 0.6em;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
@@ -259,28 +259,28 @@ button:focus-visible {
 }
 
 .cc-hero-first {
-  left: 23.826%;
-  top: 19.7053%;
-  font-size: 22.65cqw;
+  left: 25.62%;
+  top: 21.18%;
+  font-size: 20.7cqw;
   letter-spacing: -0.09em;
-  transform: scaleY(1.36);
+  transform: scaleY(1.28);
   transform-origin: left top;
 }
 
 .cc-hero-last {
-  left: 30.3867%;
-  top: 50.4604%;
-  font-size: 20.1cqw;
+  left: 32.18%;
+  top: 51.18%;
+  font-size: 18.5cqw;
   letter-spacing: -0.082em;
-  transform: scaleY(1.16);
+  transform: scaleY(1.12);
   transform-origin: left top;
   animation-delay: 80ms;
 }
 
 .cc-hero-dot {
   position: absolute;
-  left: 67.4724%;
-  top: 34.4383%;
+  left: 65.95%;
+  top: 35.18%;
   width: 1.0359%;
   height: 1.4733%;
   border-radius: 50%;
@@ -302,9 +302,7 @@ button:focus-visible {
   top: 14.2726%;
   width: 7.7348%;
   height: 31.768%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: block;
   color: var(--cc-label);
   font-family: var(--cc-font-ui);
   font-size: max(6px, 0.5cqw);
@@ -314,6 +312,16 @@ button:focus-visible {
   text-align: center;
   text-transform: uppercase;
 }
+
+.cc-manifold-labels span {
+  position: absolute;
+  inset-inline: 0;
+}
+
+.cc-manifold-labels span:nth-child(1) { top: 0; }
+.cc-manifold-labels span:nth-child(2) { top: 41.2%; }
+.cc-manifold-labels span:nth-child(3) { top: 70.4%; }
+.cc-manifold-labels span:nth-child(4) { top: 98%; }
 
 .cc-statement {
   position: absolute;
@@ -366,9 +374,9 @@ button:focus-visible {
   width: 14.5028%;
   color: var(--cc-ink);
   font-family: var(--cc-font-ui);
-  font-size: max(7px, 0.69cqw);
+  font-size: max(7px, 0.72cqw);
   font-weight: 600;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.4em;
   line-height: 2.28;
   text-align: center;
   text-transform: uppercase;
@@ -396,17 +404,17 @@ button:focus-visible {
 
 .cc-integral span {
   position: absolute;
-  left: 0;
-  top: -1.8cqw;
-  font-size: 10cqw;
+  left: 2.45cqw;
+  top: 2.2cqw;
+  font-size: 10.6cqw;
   font-style: italic;
   line-height: 1;
 }
 
 .cc-integral i {
   position: absolute;
-  right: 0;
-  top: 4.8cqw;
+  right: -2.2cqw;
+  top: 4.6cqw;
   font-size: 4.5cqw;
   font-style: normal;
 }
@@ -419,9 +427,9 @@ button:focus-visible {
   width: 25.5525%;
   min-height: 48px;
   display: grid;
-  grid-template-columns: 1cqw 5.5cqw 1fr 3.4cqw;
+  grid-template-columns: 1cqw 5cqw 1fr 3.1cqw;
   align-items: center;
-  gap: 1.85cqw;
+  gap: 1.25cqw;
   font-family: var(--cc-font-ui);
   font-size: max(8px, 0.74cqw);
   font-weight: 600;
@@ -480,9 +488,21 @@ button:focus-visible {
   to { opacity: 1; }
 }
 
+@media (min-width: 900px) {
+  .cc-home-shell {
+    min-height: 100svh;
+    display: grid;
+    place-items: start center;
+  }
+
+  .cc-home-artboard {
+    width: min(100vw, calc(100svh * 4 / 3), 1680px);
+  }
+}
+
 @media (min-width: 900px) and (max-width: 1179px) {
-  .cc-hero-first { font-size: 21.5cqw; }
-  .cc-hero-last { font-size: 19.2cqw; }
+  .cc-hero-first { font-size: 20cqw; }
+  .cc-hero-last { font-size: 17.9cqw; }
   .cc-statement { left: 79%; width: 17%; }
   .cc-manifold { opacity: 0.9; transform: translateX(2%); transform-origin: center; }
   .cc-nav { left: 29%; width: 42%; }
@@ -583,6 +603,7 @@ button:focus-visible {
     top: 930px;
     width: 35%;
     font-size: 9px;
+    letter-spacing: 0.3em;
     text-align: left;
   }
 

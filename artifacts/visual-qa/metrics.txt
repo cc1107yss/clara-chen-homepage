@@ -1,2 +1,2 @@
-mean_absolute_error=15.412
-pixels_over_12=13.012%
+mean_absolute_error=18.068
+pixels_over_12=13.617%
