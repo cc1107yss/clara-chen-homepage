@@ -2,7 +2,7 @@
 
 这是 Clara Chen 个人首页的完整网页源码：一个以杂志排版、留白和分层 SVG 图形为核心的艺术指导作品集首页。
 
-线上版本：<https://clarachen-home.yanpan-0508.chatgpt.site>
+线上版本：<https://clarachen.dev>
 
 ## 项目结构
 
