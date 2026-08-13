@@ -1,30 +1,19 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Cormorant_Garamond, Inter } from "next/font/google";
+import "@fontsource/bodoni-moda/latin-400.css";
+import "@fontsource/bodoni-moda/latin-500.css";
+import "@fontsource/cormorant-garamond/latin-500.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
 import "./globals.css";
-
-const bodoni = Bodoni_Moda({
-  variable: "--font-bodoni",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
-
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["500"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["500", "600"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://clarachen.dev"),
   title: "Clara Chen — Researcher, Designer, Builder",
   description:
     "Clara Chen explores the intersection of mathematics, artificial intelligence, finance, art, and design.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   alternates: {
     canonical: "/",
   },
@@ -60,11 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${bodoni.variable} ${cormorant.variable} ${inter.variable}`}
-      >
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
