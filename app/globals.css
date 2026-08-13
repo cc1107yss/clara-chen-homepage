@@ -500,6 +500,13 @@ button:focus-visible {
   }
 }
 
+@media (min-width: 900px) and (min-aspect-ratio: 7 / 5) {
+  .cc-home-artboard {
+    transform: scaleX(1.12);
+    transform-origin: top center;
+  }
+}
+
 @media (min-width: 900px) and (max-width: 1179px) {
   .cc-hero-first { font-size: 20cqw; }
   .cc-hero-last { font-size: 17.9cqw; }
