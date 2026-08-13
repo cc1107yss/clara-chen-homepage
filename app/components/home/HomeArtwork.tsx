@@ -142,6 +142,7 @@ export function ArtworkStructure() {
       </g>
 
       <g className="cc-manifold" fill="none" vectorEffect="non-scaling-stroke">
+        <g className="cc-manifold-composition" transform="translate(250 8) scale(0.8)">
         <path
           d="M 1024 104 C 1068 206, 982 302, 944 390 C 902 488, 971 584, 1060 646 C 988 606, 912 540, 918 438 C 923 330, 1014 234, 1024 104 Z"
           fill="var(--cc-hairline-deep)"
@@ -202,6 +203,7 @@ export function ArtworkStructure() {
           const fill = isHollow ? "var(--cc-white)" : isOxblood ? "var(--cc-oxblood)" : oliveNodeIndexes.has(index) ? "var(--cc-olive)" : "var(--cc-ink-soft)";
           return <circle key={`node-${index}`} cx={x} cy={y} r={isOxblood ? 4.5 : isHollow ? 3.6 : index % 9 === 0 ? 3.8 : 2.2} fill={fill} stroke={isHollow ? "var(--cc-hairline-deep)" : "none"} strokeWidth={isHollow ? 1.2 : 0} />;
         })}
+        </g>
       </g>
     </ArtworkBase>
   );
