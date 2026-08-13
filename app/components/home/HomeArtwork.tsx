@@ -12,18 +12,19 @@ const upperStrands = Array.from({ length: 22 }, (_, index) => {
   return `M ${x} -38 C ${x + 36} 75, ${1126 + index * 2.5} 127, ${1110 - index * 1.2} 227`;
 });
 
-const manifoldBands = Array.from({ length: 64 }, (_, index) => {
-  const offset = index - 31.5;
-  const spread = Math.abs(offset) * 1.75;
-  return `M ${1088 + offset * 0.55} 128
-    C ${1055 - spread * 0.26} 211, ${1018 - offset * 0.8} 244, ${1067 - offset * 1.15} 315
-    C ${1114 + offset * 1.35} 372, ${1130 + offset * 0.78} 419, ${1107 + offset * 0.22} 501`;
+const manifoldBands = Array.from({ length: 76 }, (_, index) => {
+  const offset = index - 37.5;
+  return `M ${1015 + offset * 0.75} -36
+    C ${1090 + offset * 0.3} 78, ${1124 - offset * 0.25} 154, ${1080 - offset * 1.05} 245
+    C ${1010 - offset * 1.6} 318, ${955 - offset * 1.15} 356, ${1008 - offset * 0.6} 392
+    C ${1060 + offset * 0.85} 430, ${1160 + offset * 1.15} 472, ${1130 + offset * 0.35} 518
+    C ${1095 - offset * 0.35} 570, ${1040 - offset * 0.7} 646, ${1095 + offset * 0.15} 726`;
 });
 
 const sliceEllipses = [
-  { cx: 1120, cy: 244, rx: 54, ry: 8, count: 14 },
-  { cx: 1147, cy: 351, rx: 34, ry: 7, count: 12 },
-  { cx: 1160, cy: 458, rx: 42, ry: 9, count: 14 },
+  { cx: 1074, cy: 275, rx: 70, ry: 8, count: 17, rotation: -3 },
+  { cx: 1122, cy: 478, rx: 42, ry: 7, count: 15, rotation: 1 },
+  { cx: 1092, cy: 664, rx: 60, ry: 9, count: 17, rotation: 4 },
 ];
 
 const networkNodes = [
@@ -34,6 +35,10 @@ const networkNodes = [
   [1004, 424], [1044, 457], [1084, 431], [1125, 468], [1168, 444], [1215, 475], [1263, 442], [1305, 478],
   [1031, 497], [1075, 517], [1118, 493], [1159, 523], [1198, 501], [1244, 516], [1286, 492],
   [1016, 103], [1098, 106], [1214, 112], [1330, 262], [1340, 340], [1327, 448],
+  [878, 188], [908, 253], [889, 330], [923, 399], [905, 470],
+  [958, 554], [1007, 581], [1058, 549], [1111, 594], [1162, 552], [1216, 592], [1269, 557], [1320, 603],
+  [977, 632], [1029, 664], [1080, 628], [1132, 684], [1182, 642], [1233, 692], [1286, 651],
+  [1008, 718], [1068, 742], [1125, 716], [1182, 748], [1246, 719],
 ] as const;
 
 /*
@@ -48,15 +53,15 @@ const networkEdges = networkNodes.flatMap(([x, y], index) =>
       nextIndex,
       distance: Math.hypot(nextX - x, nextY - y),
     }))
-    .filter(({ nextIndex, distance }) => nextIndex > index && distance < 96)
+    .filter(({ nextIndex, distance }) => nextIndex > index && distance < 106)
     .sort((a, b) => a.distance - b.distance)
-    .slice(0, index % 7 === 0 ? 3 : 2)
+    .slice(0, index % 6 === 0 ? 3 : 2)
     .map(({ nextIndex }) => [index, nextIndex] as const),
 );
 
-const oliveNodeIndexes = new Set([0, 2, 4, 5, 8, 9, 10, 12, 14, 15, 16, 17, 19, 21, 23, 25, 26, 28, 30, 31, 33, 35, 37, 38, 40, 42, 44, 46, 48, 49]);
-const oxbloodNodeIndexes = new Set([4, 13, 29, 36]);
-const hollowNodeIndexes = new Set([24, 32, 39, 52, 53]);
+const oliveNodeIndexes = new Set([0, 2, 4, 5, 8, 9, 10, 12, 14, 15, 16, 17, 19, 21, 23, 25, 26, 28, 30, 31, 33, 35, 37, 38, 40, 42, 44, 46, 48, 49, 54, 57, 60, 63, 67, 68, 70, 71, 77]);
+const oxbloodNodeIndexes = new Set([4, 13, 29, 36, 62, 69, 76]);
+const hollowNodeIndexes = new Set([24, 32, 39, 52, 53, 61, 65, 73, 78]);
 
 function ArtworkBase({ className, children }: { className: string; children: React.ReactNode }) {
   return (
@@ -137,23 +142,44 @@ export function ArtworkStructure() {
       </g>
 
       <g className="cc-manifold" fill="none" vectorEffect="non-scaling-stroke">
+        <path
+          d="M 1024 104 C 1068 206, 982 302, 944 390 C 902 488, 971 584, 1060 646 C 988 606, 912 540, 918 438 C 923 330, 1014 234, 1024 104 Z"
+          fill="var(--cc-hairline-deep)"
+          stroke="none"
+          opacity="0.075"
+        />
         {manifoldBands.map((path, index) => (
-          <path key={index} d={path} stroke="var(--cc-hairline-deep)" strokeWidth="0.58" opacity={0.12 + (index % 7) * 0.014} />
+          <path key={index} d={path} stroke="var(--cc-hairline-deep)" strokeWidth="0.52" opacity={0.11 + (index % 8) * 0.012} />
         ))}
-        {sliceEllipses.flatMap(({ cx, cy, rx, ry, count }, groupIndex) =>
+        {sliceEllipses.flatMap(({ cx, cy, rx, ry, count, rotation }, groupIndex) =>
           Array.from({ length: count }, (_, index) => (
             <ellipse
               key={`${groupIndex}-${index}`}
               cx={cx}
               cy={cy}
-              rx={rx + index * 10.5}
-              ry={ry + index * 2.2}
+              rx={rx + index * 10.2}
+              ry={ry + index * 2.15}
+              transform={`rotate(${rotation} ${cx} ${cy})`}
               stroke="var(--cc-hairline)"
-              strokeWidth="0.62"
-              opacity={0.34 - index * 0.014}
+              strokeWidth="0.56"
+              opacity={0.31 - index * 0.011}
             />
           )),
         )}
+        {sliceEllipses.flatMap(({ cx, cy, rx, ry, count, rotation }, groupIndex) => {
+          const outerRx = rx + (count - 1) * 10.2;
+          const outerRy = ry + (count - 1) * 2.15;
+          const radians = (rotation * Math.PI) / 180;
+          return Array.from({ length: 18 }, (_, index) => {
+            const angle = (index / 18) * Math.PI * 2;
+            const localX = Math.cos(angle) * outerRx;
+            const localY = Math.sin(angle) * outerRy;
+            const x = cx + localX * Math.cos(radians) - localY * Math.sin(radians);
+            const y = cy + localX * Math.sin(radians) + localY * Math.cos(radians);
+            return <line key={`spoke-${groupIndex}-${index}`} x1={cx} y1={cy} x2={x} y2={y} stroke="var(--cc-hairline)" strokeWidth="0.48" opacity="0.13" />;
+          });
+        })}
+        <path d="M 1032 40 C 1096 158, 1064 224, 1008 316 C 957 399, 1006 468, 1108 526 C 1167 560, 1154 636, 1094 724" stroke="var(--cc-hairline-deep)" strokeWidth="0.72" opacity="0.28" />
         {networkEdges.map(([startIndex, endIndex], index) => {
           const start = networkNodes[startIndex];
           const end = networkNodes[endIndex];
@@ -166,7 +192,7 @@ export function ArtworkStructure() {
               y2={end[1]}
               stroke="var(--cc-hairline-deep)"
               strokeWidth="0.66"
-              opacity={0.15 + (index % 4) * 0.017}
+              opacity={0.17 + (index % 4) * 0.018}
             />
           );
         })}
@@ -174,7 +200,7 @@ export function ArtworkStructure() {
           const isOxblood = oxbloodNodeIndexes.has(index);
           const isHollow = hollowNodeIndexes.has(index);
           const fill = isHollow ? "var(--cc-white)" : isOxblood ? "var(--cc-oxblood)" : oliveNodeIndexes.has(index) ? "var(--cc-olive)" : "var(--cc-ink-soft)";
-          return <circle key={`node-${index}`} cx={x} cy={y} r={isOxblood ? 4.2 : isHollow ? 3.4 : index % 9 === 0 ? 3.6 : 2.15} fill={fill} stroke={isHollow ? "var(--cc-hairline-deep)" : "none"} strokeWidth={isHollow ? 1.45 : 0} />;
+          return <circle key={`node-${index}`} cx={x} cy={y} r={isOxblood ? 4.5 : isHollow ? 3.6 : index % 9 === 0 ? 3.8 : 2.2} fill={fill} stroke={isHollow ? "var(--cc-hairline-deep)" : "none"} strokeWidth={isHollow ? 1.2 : 0} />;
         })}
       </g>
     </ArtworkBase>
