@@ -27,6 +27,29 @@ const sliceEllipses = [
   { cx: 1092, cy: 664, rx: 60, ry: 9, count: 17, rotation: 4 },
 ];
 
+function pointOnSlice(sliceIndex: number, angle: number) {
+  const { cx, cy, rx, ry, count, rotation } = sliceEllipses[sliceIndex];
+  const outerRx = rx + (count - 1) * 10.2;
+  const outerRy = ry + (count - 1) * 2.15;
+  const radians = (rotation * Math.PI) / 180;
+  const localX = Math.cos(angle) * outerRx;
+  const localY = Math.sin(angle) * outerRy;
+  return {
+    x: cx + localX * Math.cos(radians) - localY * Math.sin(radians),
+    y: cy + localX * Math.sin(radians) + localY * Math.cos(radians),
+  };
+}
+
+const manifoldMeridians = Array.from({ length: 18 }, (_, index) => {
+  const angle = (index / 18) * Math.PI * 2;
+  const top = pointOnSlice(0, angle);
+  const middle = pointOnSlice(1, angle + 0.32);
+  const bottom = pointOnSlice(2, angle + 0.68);
+  return `M ${top.x} ${top.y}
+    C ${top.x + 34} ${top.y + 64}, ${middle.x - 28} ${middle.y - 68}, ${middle.x} ${middle.y}
+    C ${middle.x + 24} ${middle.y + 66}, ${bottom.x - 30} ${bottom.y - 62}, ${bottom.x} ${bottom.y}`;
+});
+
 const networkNodes = [
   [971, 156], [1002, 188], [1038, 132], [1087, 165], [1136, 133], [1176, 188], [1210, 156], [1262, 191],
   [944, 218], [987, 242], [1027, 222], [1065, 255], [1101, 228], [1154, 242], [1195, 225], [1242, 251], [1290, 221],
@@ -99,6 +122,18 @@ export function ArtworkBack() {
 export function ArtworkStructure() {
   return (
     <ArtworkBase className="cc-artwork-structure">
+      <defs>
+        <linearGradient id="cc-manifold-veil" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="var(--cc-white)" stopOpacity="0" />
+          <stop offset="0.42" stopColor="var(--cc-hairline-deep)" stopOpacity="0.34" />
+          <stop offset="0.7" stopColor="var(--cc-hairline)" stopOpacity="0.1" />
+          <stop offset="1" stopColor="var(--cc-white)" stopOpacity="0" />
+        </linearGradient>
+        <radialGradient id="cc-manifold-halo">
+          <stop offset="0" stopColor="var(--cc-hairline-deep)" stopOpacity="0.1" />
+          <stop offset="1" stopColor="var(--cc-paper)" stopOpacity="0" />
+        </radialGradient>
+      </defs>
       <g className="cc-upper-left-plot" fill="none" vectorEffect="non-scaling-stroke">
         <path d="M 151 343 C 218 331, 271 302, 304 216" stroke="var(--cc-hairline)" strokeWidth="0.8" opacity="0.58" />
         <path d="M 204 299 C 254 302, 300 312, 330 294" stroke="var(--cc-hairline)" strokeWidth="0.8" opacity="0.55" />
@@ -143,14 +178,27 @@ export function ArtworkStructure() {
 
       <g className="cc-manifold" fill="none" vectorEffect="non-scaling-stroke">
         <g className="cc-manifold-composition" transform="translate(250 8) scale(0.8)">
+        <ellipse cx="1094" cy="445" rx="272" ry="318" fill="url(#cc-manifold-halo)" stroke="none" />
         <path
           d="M 1024 104 C 1068 206, 982 302, 944 390 C 902 488, 971 584, 1060 646 C 988 606, 912 540, 918 438 C 923 330, 1014 234, 1024 104 Z"
-          fill="var(--cc-hairline-deep)"
+          fill="url(#cc-manifold-veil)"
           stroke="none"
-          opacity="0.075"
+          opacity="0.42"
         />
+        <g className="cc-manifold-axis" stroke="var(--cc-hairline-deep)" opacity="0.34">
+          <line x1="1120" y1="120" x2="1095" y2="748" strokeWidth="0.52" />
+          {[275, 478, 664].map((y, index) => (
+            <g key={y}>
+              <line x1={index === 1 ? 1108 : 1081} y1={y} x2={index === 1 ? 1136 : 1107} y2={y} strokeWidth="0.6" />
+              <circle cx={index === 1 ? 1122 : index === 0 ? 1074 : 1092} cy={y} r="1.6" fill="var(--cc-hairline-deep)" stroke="none" />
+            </g>
+          ))}
+        </g>
         {manifoldBands.map((path, index) => (
           <path key={index} d={path} stroke="var(--cc-hairline-deep)" strokeWidth="0.52" opacity={0.11 + (index % 8) * 0.012} />
+        ))}
+        {manifoldMeridians.map((path, index) => (
+          <path key={`meridian-${index}`} d={path} stroke="var(--cc-hairline-deep)" strokeWidth="0.48" opacity={0.12 + (index % 5) * 0.018} />
         ))}
         {sliceEllipses.flatMap(({ cx, cy, rx, ry, count, rotation }, groupIndex) =>
           Array.from({ length: count }, (_, index) => (
@@ -181,6 +229,8 @@ export function ArtworkStructure() {
           });
         })}
         <path d="M 1032 40 C 1096 158, 1064 224, 1008 316 C 957 399, 1006 468, 1108 526 C 1167 560, 1154 636, 1094 724" stroke="var(--cc-hairline-deep)" strokeWidth="0.72" opacity="0.28" />
+        <path d="M 873 277 C 947 208, 1198 201, 1310 277" stroke="var(--cc-olive)" strokeWidth="0.58" opacity="0.34" />
+        <path d="M 904 663 C 1000 716, 1190 719, 1292 654" stroke="var(--cc-hairline-deep)" strokeWidth="0.5" opacity="0.22" />
         {networkEdges.map(([startIndex, endIndex], index) => {
           const start = networkNodes[startIndex];
           const end = networkNodes[endIndex];
@@ -201,8 +251,18 @@ export function ArtworkStructure() {
           const isOxblood = oxbloodNodeIndexes.has(index);
           const isHollow = hollowNodeIndexes.has(index);
           const fill = isHollow ? "var(--cc-white)" : isOxblood ? "var(--cc-oxblood)" : oliveNodeIndexes.has(index) ? "var(--cc-olive)" : "var(--cc-ink-soft)";
-          return <circle key={`node-${index}`} cx={x} cy={y} r={isOxblood ? 4.5 : isHollow ? 3.6 : index % 9 === 0 ? 3.8 : 2.2} fill={fill} stroke={isHollow ? "var(--cc-hairline-deep)" : "none"} strokeWidth={isHollow ? 1.2 : 0} />;
+          const radius = isOxblood ? 4.5 : isHollow ? 3.6 : index % 9 === 0 ? 3.8 : 2.2;
+          return (
+            <g key={`node-${index}`}>
+              {(isOxblood || index % 18 === 0) && <circle cx={x} cy={y} r={radius + 4.2} fill="none" stroke={fill} strokeWidth="0.45" opacity="0.18" />}
+              <circle cx={x} cy={y} r={radius} fill={fill} stroke={isHollow ? "var(--cc-hairline-deep)" : "none"} strokeWidth={isHollow ? 1.2 : 0} />
+            </g>
+          );
         })}
+        <g className="cc-manifold-notation" fill="var(--cc-label)" fontFamily="var(--cc-font-ui)" fontSize="7" fontWeight="600" letterSpacing="2.2">
+          <text x="1262" y="174">∂M / 03</text>
+          <text x="1218" y="742">φ = 0.618</text>
+        </g>
         </g>
       </g>
     </ArtworkBase>
