@@ -334,8 +334,8 @@ button:focus-visible {
 
 .cc-statement-bar {
   display: block;
-  width: 5cqw;
-  height: 4px;
+  width: 4.25cqw;
+  height: 2px;
   margin-bottom: 1.9cqw;
   background: var(--cc-oxblood);
 }
@@ -686,7 +686,7 @@ button:focus-visible {
     width: calc(100% - 52px);
   }
 
-  .cc-statement-bar { width: 58px; height: 3px; margin-bottom: 20px; }
+  .cc-statement-bar { width: 52px; height: 2px; margin-bottom: 20px; }
   .cc-statement-body { font-size: 20px; line-height: 1.35; }
   .cc-statement-roles { margin-top: 24px; font-size: 8px; line-height: 2.2; }
 

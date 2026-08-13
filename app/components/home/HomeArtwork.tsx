@@ -108,12 +108,12 @@ export function ArtworkStructure() {
       <g className="cc-financial-chart" vectorEffect="non-scaling-stroke">
         <path d="M 132 968 H 444 M 132 968 V 676" fill="none" stroke="var(--cc-hairline-deep)" strokeWidth="0.9" opacity="0.62" />
         <path d="M 444 968 l -6 -4 M 444 968 l -6 4 M 132 676 l -4 7 M 132 676 l 4 7" fill="none" stroke="var(--cc-hairline-deep)" strokeWidth="0.9" />
-        <path d="M -30 1085 C 70 1005, 117 923, 187 841 C 240 780, 304 740, 381 727 C 402 724, 420 724, 438 725" fill="none" stroke="var(--cc-olive)" strokeWidth="1.65" />
+        <path d="M -30 1085 C 70 1005, 117 923, 187 841 C 240 780, 304 740, 381 727 C 402 724, 420 724, 438 725" fill="none" stroke="var(--cc-olive)" strokeWidth="1.1" opacity="0.78" />
         <path d="M 103 940 C 164 818, 252 723, 358 682" fill="none" stroke="var(--cc-hairline-deep)" strokeDasharray="4 5" strokeWidth="0.8" opacity="0.78" />
         {[174, 214, 258, 304, 350, 395].map((x, index) => (
           <circle key={x} cx={x} cy={[864, 812, 774, 745, 730, 726][index]} r="3" fill="var(--cc-olive)" />
         ))}
-        <circle cx="319" cy="758" r="8.4" fill="var(--cc-white)" stroke="var(--cc-olive)" strokeWidth="2" />
+        <circle cx="319" cy="758" r="8.4" fill="var(--cc-white)" stroke="var(--cc-olive)" strokeWidth="1.2" />
         <circle cx="319" cy="758" r="2.7" fill="var(--cc-olive)" />
         {Array.from({ length: 10 }, (_, index) => {
           const x = 350 + index * 9;
@@ -184,15 +184,13 @@ export function ArtworkStructure() {
 export function ArtworkFront() {
   return (
     <ArtworkBase className="cc-artwork-front">
-      <path d="M 363 350 C 486 173, 624 180, 682 321 C 719 409, 693 481, 595 535" fill="none" stroke="var(--cc-ink)" strokeWidth="1.05" opacity="0.92" vectorEffect="non-scaling-stroke" />
-      <path d="M 578 612 C 681 520, 709 370, 825 303 C 929 243, 1057 275, 1136 226" fill="none" stroke="var(--cc-olive)" strokeWidth="1.25" opacity="0.82" vectorEffect="non-scaling-stroke" />
-      <path d="M 405 1086 C 350 927, 401 802, 527 747 C 614 709, 635 618, 710 551 C 733 530, 750 539, 750 556" fill="none" stroke="var(--cc-olive)" strokeWidth="1.45" opacity="0.86" vectorEffect="non-scaling-stroke" />
+      <path d="M 363 350 C 486 173, 624 180, 682 321 C 719 409, 693 481, 595 535" fill="none" stroke="var(--cc-ink-soft)" strokeWidth="0.72" opacity="0.58" vectorEffect="non-scaling-stroke" />
+      <path d="M 578 612 C 681 520, 709 370, 825 303 C 929 243, 1057 275, 1136 226" fill="none" stroke="var(--cc-olive)" strokeWidth="0.78" opacity="0.58" vectorEffect="non-scaling-stroke" />
+      <path d="M 405 1086 C 350 927, 401 802, 527 747 C 614 709, 635 618, 710 551 C 733 530, 750 539, 750 556" fill="none" stroke="var(--cc-olive)" strokeWidth="0.9" opacity="0.62" vectorEffect="non-scaling-stroke" />
       <g className="cc-crosshair" stroke="var(--cc-oxblood)" vectorEffect="non-scaling-stroke">
-        <line x1="723" y1="822" x2="723" y2="878" strokeWidth="0.9" />
-        <line x1="691" y1="850" x2="754" y2="850" strokeWidth="0.9" />
-        <line x1="708" y1="850" x2="738" y2="850" strokeWidth="2.1" opacity="0.5" />
-        <line x1="723" y1="837" x2="723" y2="864" strokeWidth="2.1" opacity="0.5" />
-        <circle cx="723" cy="850" r="1.9" fill="var(--cc-oxblood)" stroke="none" />
+        <line x1="723" y1="822" x2="723" y2="878" strokeWidth="0.7" opacity="0.68" />
+        <line x1="691" y1="850" x2="754" y2="850" strokeWidth="0.7" opacity="0.68" />
+        <circle cx="723" cy="850" r="1.4" fill="var(--cc-oxblood)" stroke="none" />
       </g>
     </ArtworkBase>
   );
