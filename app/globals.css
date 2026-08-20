@@ -488,55 +488,32 @@ button:focus-visible {
   position: absolute;
   z-index: 50;
   left: 32.18%;
-  top: 78.25%;
+  top: 80.5%;
   display: flex;
   align-items: center;
-  gap: 1.25cqw;
-  color: var(--cc-ink-soft);
+  gap: 1.5cqw;
+  color: var(--cc-ink);
   font-family: var(--cc-font-ui);
-  font-size: max(8px, 0.62cqw);
+  font-size: 1.86cqw;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-}
-
-.cc-socials-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9cqw;
-  color: var(--cc-label);
-  font-size: 0.86em;
-  letter-spacing: 0.34em;
-}
-
-.cc-socials-label::after {
-  width: 2.6cqw;
-  height: 1px;
-  background: var(--cc-hairline-deep);
-  content: "";
 }
 
 .cc-socials a {
   position: relative;
-  min-height: 44px;
+  min-height: 1.7em;
   display: inline-flex;
   align-items: center;
+  padding-bottom: 0.22em;
   text-decoration: none;
   transition: color 190ms var(--cc-ease);
-}
-
-.cc-socials a + a::before {
-  width: 1px;
-  height: 10px;
-  margin-right: 1.25cqw;
-  background: var(--cc-hairline-deep);
-  content: "";
 }
 
 .cc-socials a::after {
   position: absolute;
   right: 0;
-  bottom: 7px;
+  bottom: 0;
   left: 0;
   height: 1px;
   content: "";
@@ -713,15 +690,11 @@ button:focus-visible {
 
   .cc-socials {
     left: 12%;
-    top: 570px;
-    gap: 15px;
-    font-size: 9px;
-    letter-spacing: 0.2em;
+    top: 600px;
+    gap: 22px;
+    font-size: 26px;
+    letter-spacing: 0.06em;
   }
-
-  .cc-socials-label { gap: 12px; }
-  .cc-socials-label::after { width: 34px; }
-  .cc-socials a + a::before { margin-right: 15px; }
 }
 
 @media (max-width: 699px) {
@@ -800,16 +773,13 @@ button:focus-visible {
 
   .cc-socials {
     left: 26px;
-    top: 696px;
-    gap: 9px;
-    font-size: 8px;
-    letter-spacing: 0.14em;
+    top: 360px;
+    gap: 16px;
+    font-size: 24px;
+    letter-spacing: 0.06em;
   }
 
-  .cc-socials a { min-height: 40px; }
-  .cc-socials-label { gap: 8px; }
-  .cc-socials-label::after { width: 20px; }
-  .cc-socials a + a::before { height: 8px; margin-right: 9px; }
+  .cc-socials a { min-height: 1.7em; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -8,9 +8,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://clarachen.dev"),
-  title: "Clara Chen — Researcher, Designer, Builder",
-  description:
-    "Clara Chen explores the intersection of mathematics, artificial intelligence, finance, art, and design.",
+  title: "Clara Chen",
+  description: "Clara Chen",
   icons: {
     icon: "/favicon.svg",
   },
@@ -21,24 +20,13 @@ export const metadata: Metadata = {
     type: "website",
     url: "/",
     siteName: "Clara Chen",
-    title: "Clara Chen — Researcher, Designer, Builder",
-    description:
-      "Exploring the intersection of mathematics, artificial intelligence, finance, art, and design.",
-    images: [
-      {
-        url: "/og.png",
-        width: 1732,
-        height: 908,
-        alt: "Clara Chen — Researcher, Designer, Builder",
-      },
-    ],
+    title: "Clara Chen",
+    description: "Clara Chen",
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Clara Chen — Researcher, Designer, Builder",
-    description:
-      "Exploring the intersection of mathematics, artificial intelligence, finance, art, and design.",
-    images: ["/og.png"],
+    card: "summary",
+    title: "Clara Chen",
+    description: "Clara Chen",
   },
 };
 

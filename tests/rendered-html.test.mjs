@@ -23,26 +23,23 @@ async function render() {
   );
 }
 
-test("server-renders Clara Chen's editorial homepage", async () => {
+test("server-renders Clara Chen's minimal homepage", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Clara Chen — Researcher, Designer, Builder<\/title>/i);
+  assert.match(html, /<title>Clara Chen<\/title>/i);
   assert.match(html, /aria-label="Clara Chen"/);
   assert.match(html, />Clara<\/span>/);
   assert.match(html, />Chen<\/span>/);
-  assert.match(html, /aria-label="Main navigation"/);
-  assert.match(html, /id="about"/);
-  assert.match(html, /I explore the space/);
-  assert.match(html, /where mathematics,/);
-  assert.match(html, /Researcher\. Designer\./);
-  assert.match(html, /Systems Thinker/);
-  assert.match(html, /Explore My Work/);
+  assert.match(html, />LinkedIn<\/a>/);
+  assert.match(html, />GitHub<\/a>/);
+  assert.match(html, />Email<\/a>/);
+  assert.doesNotMatch(html, /Main navigation|I explore the space|Researcher\. Designer\.|Systems Thinker|Explore My Work/);
   assert.match(html, /<svg[^>]*aria-hidden="true"/);
-  assert.match(html, /property="og:image" content="https:\/\/clarachen\.dev\/og\.png"/);
-  assert.match(html, /name="twitter:card" content="summary_large_image"/);
+  assert.doesNotMatch(html, /<text\b/i);
+  assert.match(html, /name="twitter:card" content="summary"/);
   assert.doesNotMatch(html, /codex-preview|figmacapture|html-to-design\/capture\.js/i);
 });
 

@@ -218,10 +218,6 @@ export function ArtworkStructure() {
             </g>
           );
         })}
-        <g className="cc-manifold-notation" fill="var(--cc-label)" fontFamily="var(--cc-font-ui)" fontSize="7" fontWeight="600" letterSpacing="2.2">
-          <text x="1262" y="174">∂M / 03</text>
-          <text x="1218" y="742">φ = 0.618</text>
-        </g>
         </g>
       </g>
     </ArtworkBase>
