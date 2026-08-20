@@ -176,6 +176,7 @@ button:focus-visible {
 
 .cc-header-rule {
   position: absolute;
+  z-index: 40;
   left: 88.7431%;
   top: 4.2357%;
   width: 6.0083%;

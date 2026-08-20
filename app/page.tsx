@@ -11,6 +11,17 @@ function HeroName() {
   );
 }
 
+function EditorialLines() {
+  return (
+    <>
+      <span className="cc-header-rule" aria-hidden="true" />
+      <div className="cc-left-rail" aria-hidden="true">
+        <span className="cc-left-rail-line" />
+      </div>
+    </>
+  );
+}
+
 function SocialLinks() {
   return (
     <nav className="cc-socials" aria-label="Social and contact links">
@@ -37,6 +48,7 @@ export default function Home() {
         <HeroName />
         <ArtworkStructure />
         <ArtworkFront />
+        <EditorialLines />
         <SocialLinks />
       </section>
     </main>

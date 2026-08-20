@@ -98,7 +98,6 @@ export function ArtworkBack() {
       <g className="cc-upper-strands" fill="none" stroke="var(--cc-hairline-deep)" strokeWidth="0.64" vectorEffect="non-scaling-stroke">
         {upperStrands.map((path, index) => <path key={index} d={path} opacity={0.08 + index * 0.007} />)}
       </g>
-      <path d="M 552 1086 C 503 935, 571 850, 684 820 C 793 791, 906 696, 1017 489" fill="none" stroke="var(--cc-hairline-soft)" strokeWidth="1" opacity="0.48" />
     </ArtworkBase>
   );
 }
