@@ -19,9 +19,7 @@ function EditorialHeader() {
           <a key={item.label} href={item.href}>{item.label}</a>
         ))}
       </nav>
-      <button className="cc-menu" type="button" aria-label="Open navigation menu">
-        Menu
-      </button>
+      <a className="cc-menu" href="mailto:clarachen07@foxmail.com">Contact</a>
       <span className="cc-header-rule" aria-hidden="true" />
     </header>
   );
@@ -90,12 +88,37 @@ function IntegralGlyph() {
 
 function ExploreWorkCTA() {
   return (
-    <a className="cc-cta" href="#work" id="work">
+    <a
+      className="cc-cta"
+      href="https://github.com/cc1107yss"
+      id="work"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <span className="cc-cta-dot" aria-hidden="true" />
       <span className="cc-cta-rule" aria-hidden="true" />
       <span className="cc-cta-label">{homeContent.cta}</span>
       <span className="cc-cta-arrow" aria-hidden="true" />
     </a>
+  );
+}
+
+function SocialLinks() {
+  return (
+    <nav className="cc-socials" aria-label="Social and contact links">
+      <span className="cc-socials-label" aria-hidden="true">Connect</span>
+      {homeContent.socials.map((item) => (
+        <a
+          key={item.label}
+          href={item.href}
+          {...(item.external
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {})}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
   );
 }
 
@@ -114,6 +137,7 @@ export default function Home() {
         <TraitCluster />
         <IntegralGlyph />
         <ExploreWorkCTA />
+        <SocialLinks />
         <span className="cc-contact-anchor" id="contact" aria-hidden="true" />
       </section>
     </main>

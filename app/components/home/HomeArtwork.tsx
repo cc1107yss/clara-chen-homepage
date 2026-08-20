@@ -27,6 +27,17 @@ const sliceEllipses = [
   { cx: 1092, cy: 664, rx: 68, ry: 10, count: 10, rotation: 4 },
 ];
 
+const quantCandles = [
+  { x: 96, open: 900, close: 872, high: 858, low: 914 },
+  { x: 138, open: 888, close: 850, high: 840, low: 896 },
+  { x: 180, open: 836, close: 858, high: 830, low: 872 },
+  { x: 222, open: 858, close: 820, high: 812, low: 866 },
+  { x: 264, open: 806, close: 828, high: 800, low: 842 },
+  { x: 306, open: 792, close: 776, high: 768, low: 800 },
+  { x: 348, open: 794, close: 762, high: 754, low: 800 },
+  { x: 390, open: 762, close: 748, high: 740, low: 770 },
+] as const;
+
 function pointOnSlice(sliceIndex: number, angle: number) {
   const { cx, cy, rx, ry, count, rotation } = sliceEllipses[sliceIndex];
   const outerRx = rx + (count - 1) * 10.2;
@@ -125,18 +136,39 @@ export function ArtworkStructure() {
       </g>
 
       <g className="cc-financial-chart" vectorEffect="non-scaling-stroke">
-        <path d="M 132 968 H 444 M 132 968 V 676" fill="none" stroke="var(--cc-hairline-deep)" strokeWidth="0.9" opacity="0.62" />
-        <path d="M 444 968 l -6 -4 M 444 968 l -6 4 M 132 676 l -4 7 M 132 676 l 4 7" fill="none" stroke="var(--cc-hairline-deep)" strokeWidth="0.9" />
-        <path d="M -30 1085 C 70 1005, 117 923, 187 841 C 240 780, 304 740, 381 727 C 402 724, 420 724, 438 725" fill="none" stroke="var(--cc-olive)" strokeWidth="1.1" opacity="0.78" />
-        {[174, 258, 350, 395].map((x, index) => (
-          <circle key={x} cx={x} cy={[864, 774, 730, 726][index]} r="2.6" fill="var(--cc-olive)" />
-        ))}
-        <circle cx="319" cy="758" r="8.4" fill="var(--cc-white)" stroke="var(--cc-olive)" strokeWidth="1.2" />
-        <circle cx="319" cy="758" r="2.7" fill="var(--cc-olive)" />
-        <text x="153" y="654" className="cc-svg-label">EFFICIENT FRONTIER</text>
-        <text x="93" y="980" className="cc-svg-label">RETURN</text>
-        <text x="330" y="1016" className="cc-svg-label">RISK</text>
-        <text x="307" y="804" className="cc-svg-label"><tspan x="307">OPTIMAL</tspan><tspan x="307" dy="16">PORTFOLIO</tspan></text>
+        <g fill="none" stroke="var(--cc-hairline-deep)" strokeWidth="0.6">
+          <path d="M 54 884 C 132 884, 158 724, 232 716 C 306 708, 338 884, 438 884" opacity="0.28" />
+          <line x1="76" y1="936" x2="430" y2="936" opacity="0.34" />
+          <line x1="76" y1="932" x2="76" y2="940" opacity="0.5" />
+          <line x1="430" y1="932" x2="430" y2="940" opacity="0.5" />
+        </g>
+        <g>
+          {quantCandles.map((candle) => {
+            const isUp = candle.close < candle.open;
+            const color = isUp ? "var(--cc-olive)" : "var(--cc-oxblood)";
+            const bodyTop = Math.min(candle.open, candle.close);
+            const bodyHeight = Math.max(Math.abs(candle.open - candle.close), 2);
+            return (
+              <g key={`candle-${candle.x}`}>
+                <line x1={candle.x} y1={candle.high} x2={candle.x} y2={candle.low} stroke={color} strokeWidth="0.8" opacity="0.72" />
+                <rect
+                  x={candle.x - 4}
+                  y={bodyTop}
+                  width={8}
+                  height={bodyHeight}
+                  fill={isUp ? color : "var(--cc-white)"}
+                  stroke={color}
+                  strokeWidth="0.8"
+                  opacity="0.8"
+                />
+              </g>
+            );
+          })}
+        </g>
+        <path d="M 96 890 C 164 878, 214 852, 264 826 C 312 802, 354 776, 410 754" fill="none" stroke="var(--cc-oxblood)" strokeWidth="0.8" opacity="0.46" />
+        <circle cx="306" cy="776" r="6" fill="var(--cc-white)" stroke="var(--cc-olive)" strokeWidth="0.9" opacity="0.9" />
+        <circle cx="306" cy="776" r="2" fill="var(--cc-olive)" />
+        <text x="76" y="962" className="cc-svg-label">SIGNAL / 01</text>
       </g>
 
       <g className="cc-manifold" fill="none" vectorEffect="non-scaling-stroke">

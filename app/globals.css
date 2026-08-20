@@ -171,6 +171,7 @@ button:focus-visible {
 
 .cc-menu {
   display: none;
+  text-decoration: none;
 }
 
 .cc-header-rule {
@@ -483,6 +484,77 @@ button:focus-visible {
   bottom: 0;
 }
 
+.cc-socials {
+  position: absolute;
+  z-index: 50;
+  left: 32.18%;
+  top: 78.25%;
+  display: flex;
+  align-items: center;
+  gap: 1.25cqw;
+  color: var(--cc-ink-soft);
+  font-family: var(--cc-font-ui);
+  font-size: max(8px, 0.62cqw);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.cc-socials-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9cqw;
+  color: var(--cc-label);
+  font-size: 0.86em;
+  letter-spacing: 0.34em;
+}
+
+.cc-socials-label::after {
+  width: 2.6cqw;
+  height: 1px;
+  background: var(--cc-hairline-deep);
+  content: "";
+}
+
+.cc-socials a {
+  position: relative;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: color 190ms var(--cc-ease);
+}
+
+.cc-socials a + a::before {
+  width: 1px;
+  height: 10px;
+  margin-right: 1.25cqw;
+  background: var(--cc-hairline-deep);
+  content: "";
+}
+
+.cc-socials a::after {
+  position: absolute;
+  right: 0;
+  bottom: 7px;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: var(--cc-oxblood);
+  transform: scaleX(0);
+  transition: transform 190ms var(--cc-ease);
+}
+
+.cc-socials a:hover,
+.cc-socials a:focus-visible {
+  color: var(--cc-oxblood);
+}
+
+.cc-socials a:hover::after,
+.cc-socials a:focus-visible::after {
+  transform: scaleX(1);
+}
+
 @keyframes cc-title-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -638,6 +710,18 @@ button:focus-visible {
   }
 
   .cc-cta-dot { width: 14px; }
+
+  .cc-socials {
+    left: 12%;
+    top: 570px;
+    gap: 15px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+  }
+
+  .cc-socials-label { gap: 12px; }
+  .cc-socials-label::after { width: 34px; }
+  .cc-socials a + a::before { margin-right: 15px; }
 }
 
 @media (max-width: 699px) {
@@ -713,6 +797,19 @@ button:focus-visible {
   }
 
   .cc-cta-dot { width: 12px; }
+
+  .cc-socials {
+    left: 26px;
+    top: 696px;
+    gap: 9px;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+  }
+
+  .cc-socials a { min-height: 40px; }
+  .cc-socials-label { gap: 8px; }
+  .cc-socials-label::after { width: 20px; }
+  .cc-socials a + a::before { height: 8px; margin-right: 9px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
