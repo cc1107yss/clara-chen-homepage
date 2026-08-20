@@ -27,6 +27,32 @@ const sliceEllipses = [
   { cx: 1092, cy: 664, rx: 68, ry: 10, count: 10, rotation: 4 },
 ];
 
+const lensRings = Array.from({ length: 17 }, (_, index) => ({
+  rx: 48 + index * 8.6,
+  ry: 6 + index * 2.25,
+  opacity: 0.3 - index * 0.011,
+}));
+
+const lensThreads = Array.from({ length: 12 }, (_, index) => {
+  const x = 86 + index * 29;
+  const bend = Math.sin(index * 0.72) * 18;
+  return `M ${x} 533
+    C ${x + 40 + bend} 494, ${x + 60 - bend} 590, ${x + 94} 612`;
+});
+
+const sphereLatitudes = Array.from({ length: 13 }, (_, index) => {
+  const offset = (index - 6) * 21;
+  const radius = 186 * Math.sqrt(1 - (offset / 165) ** 2);
+  return { cy: 864 + offset, rx: radius, ry: 7 + Math.abs(offset) * 0.045 };
+});
+
+const sphereMeridians = Array.from({ length: 13 }, (_, index) => {
+  const offset = (index - 6) * 26;
+  const pull = Math.abs(offset) * 0.38;
+  return `M 1206 700 C ${1206 + offset * 1.28} 748, ${1206 + offset * 1.28} 980, 1206 1028
+    M ${1206 - pull} 700 C ${1206 + offset * 0.74} 752, ${1206 + offset * 0.74} 976, ${1206 - pull} 1028`;
+});
+
 function pointOnSlice(sliceIndex: number, angle: number) {
   const { cx, cy, rx, ry, count, rotation } = sliceEllipses[sliceIndex];
   const outerRx = rx + (count - 1) * 10.2;
@@ -135,6 +161,34 @@ export function ArtworkStructure() {
         <circle cx="306" cy="776" r="2" fill="var(--cc-olive)" opacity="0.55" />
       </g>
 
+      <g className="cc-left-lens" fill="none" vectorEffect="non-scaling-stroke">
+        <ellipse cx="246" cy="566" rx="184" ry="52" transform="rotate(13 246 566)" fill="var(--cc-paper-highlight)" opacity="0.22" stroke="none" />
+        {lensRings.map(({ rx, ry, opacity }, index) => (
+          <ellipse
+            key={`lens-ring-${index}`}
+            cx="246"
+            cy="566"
+            rx={rx}
+            ry={ry}
+            transform="rotate(13 246 566)"
+            stroke="var(--cc-hairline-deep)"
+            strokeWidth="0.55"
+            opacity={opacity}
+          />
+        ))}
+        {lensThreads.map((path, index) => (
+          <path
+            key={`lens-thread-${index}`}
+            d={path}
+            stroke="var(--cc-hairline)"
+            strokeWidth="0.52"
+            opacity={0.1 + (index % 4) * 0.022}
+          />
+        ))}
+        <path d="M 78 565 C 148 478, 338 493, 424 573" stroke="var(--cc-olive)" strokeWidth="0.66" opacity="0.38" />
+        <path d="M 92 593 C 186 640, 318 638, 410 584" stroke="var(--cc-hairline-deep)" strokeWidth="0.52" opacity="0.28" />
+      </g>
+
       <g className="cc-manifold" fill="none" vectorEffect="non-scaling-stroke">
         <g className="cc-manifold-composition" transform="translate(250 8) scale(0.8)">
         <ellipse cx="1094" cy="445" rx="272" ry="318" fill="url(#cc-manifold-halo)" stroke="none" />
@@ -218,6 +272,39 @@ export function ArtworkStructure() {
           );
         })}
         </g>
+      </g>
+
+      <g className="cc-orbit-sphere" fill="none" vectorEffect="non-scaling-stroke">
+        <ellipse cx="1206" cy="864" rx="186" ry="164" fill="var(--cc-paper-highlight)" opacity="0.18" stroke="none" />
+        <clipPath id="cc-orbit-sphere-clip">
+          <ellipse cx="1206" cy="864" rx="186" ry="164" />
+        </clipPath>
+        <g clipPath="url(#cc-orbit-sphere-clip)">
+          {sphereLatitudes.map(({ cy, rx, ry }, index) => (
+            <ellipse
+              key={`sphere-latitude-${index}`}
+              cx="1206"
+              cy={cy}
+              rx={rx}
+              ry={ry}
+              stroke="var(--cc-hairline-deep)"
+              strokeWidth="0.55"
+              opacity={0.12 + (index % 4) * 0.028}
+            />
+          ))}
+          {sphereMeridians.map((path, index) => (
+            <path
+              key={`sphere-meridian-${index}`}
+              d={path}
+              stroke="var(--cc-hairline-deep)"
+              strokeWidth="0.54"
+              opacity={0.09 + (index % 5) * 0.018}
+            />
+          ))}
+          <path d="M 1017 865 C 1080 812, 1318 813, 1397 864" stroke="var(--cc-olive)" strokeWidth="0.7" opacity="0.26" />
+          <path d="M 1034 912 C 1112 947, 1304 951, 1379 905" stroke="var(--cc-oxblood)" strokeWidth="0.62" opacity="0.2" />
+        </g>
+        <ellipse cx="1206" cy="864" rx="186" ry="164" stroke="var(--cc-hairline-deep)" strokeWidth="0.68" opacity="0.38" />
       </g>
     </ArtworkBase>
   );
