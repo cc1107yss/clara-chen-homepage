@@ -615,7 +615,6 @@ button:focus-visible {
   .cc-artwork-structure { opacity: 0.52; }
   .cc-artwork-front { opacity: 0.64; }
   .cc-left-lens { opacity: 0.72; }
-  .cc-orbit-sphere { opacity: 0.56; }
   .cc-financial-chart { transform: translate(150px, 490px) scale(0.9); transform-origin: center; }
   .cc-crosshair { display: none; }
 
@@ -717,7 +716,7 @@ button:focus-visible {
   .cc-artwork-back { opacity: 0.38; }
   .cc-artwork-structure { opacity: 0.33; }
   .cc-artwork-front { opacity: 0.48; }
-  .cc-left-lens, .cc-orbit-sphere { display: none; }
+  .cc-left-lens { display: none; }
   .cc-upper-strands, .cc-svg-label { display: none; }
   .cc-manifold { transform: translate(110px, -30px); }
   .cc-financial-chart { transform: translate(350px, 395px) scale(0.8); }

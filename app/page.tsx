@@ -1,4 +1,4 @@
-import { ArtworkBack, ArtworkFront, ArtworkStructure } from "./components/home/HomeArtwork";
+import { ArtworkBack, ArtworkStructure } from "./components/home/HomeArtwork";
 import { homeContent } from "./home-content";
 
 function HeroName() {
@@ -47,7 +47,6 @@ export default function Home() {
         <ArtworkBack />
         <HeroName />
         <ArtworkStructure />
-        <ArtworkFront />
         <EditorialLines />
         <SocialLinks />
       </section>
