@@ -150,7 +150,7 @@ export function ArtworkStructure() {
             const bodyHeight = Math.max(Math.abs(candle.open - candle.close), 2);
             return (
               <g key={`candle-${candle.x}`}>
-                <line x1={candle.x} y1={candle.high} x2={candle.x} y2={candle.low} stroke={color} strokeWidth="0.8" opacity="0.72" />
+                <line x1={candle.x} y1={candle.high} x2={candle.x} y2={candle.low} stroke={color} strokeWidth="0.8" opacity="0.42" />
                 <rect
                   x={candle.x - 4}
                   y={bodyTop}
@@ -159,15 +159,15 @@ export function ArtworkStructure() {
                   fill={isUp ? color : "var(--cc-white)"}
                   stroke={color}
                   strokeWidth="0.8"
-                  opacity="0.8"
+                  opacity="0.48"
                 />
               </g>
             );
           })}
         </g>
-        <path d="M 96 890 C 164 878, 214 852, 264 826 C 312 802, 354 776, 410 754" fill="none" stroke="var(--cc-oxblood)" strokeWidth="0.8" opacity="0.46" />
-        <circle cx="306" cy="776" r="6" fill="var(--cc-white)" stroke="var(--cc-olive)" strokeWidth="0.9" opacity="0.9" />
-        <circle cx="306" cy="776" r="2" fill="var(--cc-olive)" />
+        <path d="M 96 890 C 164 878, 214 852, 264 826 C 312 802, 354 776, 410 754" fill="none" stroke="var(--cc-oxblood)" strokeWidth="0.8" opacity="0.28" />
+        <circle cx="306" cy="776" r="6" fill="var(--cc-white)" stroke="var(--cc-olive)" strokeWidth="0.9" opacity="0.62" />
+        <circle cx="306" cy="776" r="2" fill="var(--cc-olive)" opacity="0.55" />
         <text x="76" y="962" className="cc-svg-label">SIGNAL / 01</text>
       </g>
 
