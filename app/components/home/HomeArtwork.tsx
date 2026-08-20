@@ -27,17 +27,6 @@ const sliceEllipses = [
   { cx: 1092, cy: 664, rx: 68, ry: 10, count: 10, rotation: 4 },
 ];
 
-const quantCandles = [
-  { x: 96, open: 900, close: 872, high: 858, low: 914 },
-  { x: 138, open: 888, close: 850, high: 840, low: 896 },
-  { x: 180, open: 836, close: 858, high: 830, low: 872 },
-  { x: 222, open: 858, close: 820, high: 812, low: 866 },
-  { x: 264, open: 806, close: 828, high: 800, low: 842 },
-  { x: 306, open: 792, close: 776, high: 768, low: 800 },
-  { x: 348, open: 794, close: 762, high: 754, low: 800 },
-  { x: 390, open: 762, close: 748, high: 740, low: 770 },
-] as const;
-
 function pointOnSlice(sliceIndex: number, angle: number) {
   const { cx, cy, rx, ry, count, rotation } = sliceEllipses[sliceIndex];
   const outerRx = rx + (count - 1) * 10.2;
@@ -142,33 +131,9 @@ export function ArtworkStructure() {
           <line x1="76" y1="932" x2="76" y2="940" opacity="0.5" />
           <line x1="430" y1="932" x2="430" y2="940" opacity="0.5" />
         </g>
-        <g>
-          {quantCandles.map((candle) => {
-            const isUp = candle.close < candle.open;
-            const color = isUp ? "var(--cc-olive)" : "var(--cc-oxblood)";
-            const bodyTop = Math.min(candle.open, candle.close);
-            const bodyHeight = Math.max(Math.abs(candle.open - candle.close), 2);
-            return (
-              <g key={`candle-${candle.x}`}>
-                <line x1={candle.x} y1={candle.high} x2={candle.x} y2={candle.low} stroke={color} strokeWidth="0.8" opacity="0.42" />
-                <rect
-                  x={candle.x - 4}
-                  y={bodyTop}
-                  width={8}
-                  height={bodyHeight}
-                  fill={isUp ? color : "var(--cc-white)"}
-                  stroke={color}
-                  strokeWidth="0.8"
-                  opacity="0.48"
-                />
-              </g>
-            );
-          })}
-        </g>
         <path d="M 96 890 C 164 878, 214 852, 264 826 C 312 802, 354 776, 410 754" fill="none" stroke="var(--cc-oxblood)" strokeWidth="0.8" opacity="0.28" />
         <circle cx="306" cy="776" r="6" fill="var(--cc-white)" stroke="var(--cc-olive)" strokeWidth="0.9" opacity="0.62" />
         <circle cx="306" cy="776" r="2" fill="var(--cc-olive)" opacity="0.55" />
-        <text x="76" y="962" className="cc-svg-label">SIGNAL / 01</text>
       </g>
 
       <g className="cc-manifold" fill="none" vectorEffect="non-scaling-stroke">
